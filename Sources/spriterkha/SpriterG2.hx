@@ -9,7 +9,7 @@ import imagesheet.ImageSheet;
 
 class SpriterG2 {
 
-	public static function drawSpriter(g2 : Graphics, imageSheet : ImageSheet, entity : EntityInstance, x : Float, y : Float ) {
+	public static inline function drawSpriter(g2 : Graphics, imageSheet : ImageSheet, entity : EntityInstance, x : Float, y : Float ) {
 		drawSpriterScaled(g2, imageSheet, entity, x, y, 1, 1);
 	}
 
