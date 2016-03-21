@@ -10,12 +10,14 @@ import imagesheet.ImageSheet;
 class SpriterG2 {
 
 	public static inline function drawSpriter(g2 : Graphics, imageSheet : ImageSheet, entity : EntityInstance, x : Float, y : Float ) {
-		drawSpriterScaled(g2, imageSheet, entity, x, y, 1, 1);
+		drawSpriterScaled(g2, imageSheet, entity, x, y, 1, 1, false);
 	}
 
-	public static function drawSpriterScaled(g2 : Graphics, imageSheet : ImageSheet, entity : EntityInstance, x : Float, y : Float, sx : Float, sy : Float ){
+	public static function drawSpriterScaled(g2 : Graphics, imageSheet : ImageSheet, entity : EntityInstance, x : Float, y : Float, sx : Float, sy : Float, flipX : Bool ) {
 		var sprites = entity.sprites;
 		var current = sprites.start;
+		var xflip = flipX ? -1 : 1;
+
 		while (current < sprites.top){
 			var folderId = sprites.folderId(current);
 			var fileId = sprites.fileId(current);
@@ -36,11 +38,11 @@ class SpriterG2 {
 			var height = subImage.originalHeight;
 			var originX = pivotX * width - offsetX;
 			var originY = (1.0 - pivotY) * height - offsetY;
-			var locationX = (sx * sprites.x(current)) + x ;
+			var locationX = (xflip * sx * sprites.x(current)) + x;
 			var locationY = (sy * -sprites.y(current)) + y;
-			var scaleX = sprites.scaleX(current) * sx;
+			var scaleX = sprites.scaleX(current) * sx * xflip;
 			var scaleY = sprites.scaleY(current) * sy;
-			var angle = -sprites.angle(current);
+			var angle = -sprites.angle(current) * xflip;
 			if(subImage.rotated){
 				angle -= Math.PI/2;
 				var tmp = originX;
@@ -65,7 +67,7 @@ class SpriterG2 {
 				subHeight = subImage.width;
 			}
 
-			g2.drawScaledSubImage(imageSheet.image, subImage.x, subImage.y, subWidth, subHeight,0,0,subWidth, subHeight);
+			g2.drawScaledSubImage(imageSheet.image, subImage.x, subImage.y, subWidth, subHeight, 0, 0, subWidth, subHeight);
 
 			current+=entity.sprites.structSize;
 		}
