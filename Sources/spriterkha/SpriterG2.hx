@@ -10,10 +10,10 @@ import imagesheet.ImageSheet;
 class SpriterG2 {
 
 	public static inline function drawSpriter(g2 : Graphics, imageSheet : ImageSheet, entity : EntityInstance, x : Float, y : Float ) {
-		drawSpriterScaled(g2, imageSheet, entity, x, y, 1, 1, false);
+		drawSpriterScaled(g2, imageSheet, entity, x, y, 1, false);
 	}
 
-	public static function drawSpriterScaled(g2 : Graphics, imageSheet : ImageSheet, entity : EntityInstance, x : Float, y : Float, sx : Float, sy : Float, flipX : Bool ) {
+	public static function drawSpriterScaled(g2 : Graphics, imageSheet : ImageSheet, entity : EntityInstance, x : Float, y : Float, scale : Float, flipX : Bool ) {
 		var sprites = entity.sprites;
 		var current = sprites.start;
 		var xflip = flipX ? -1 : 1;
@@ -31,17 +31,17 @@ class SpriterG2 {
 
 			var pivotX = sprites.pivotX(current);
 			var pivotY = sprites.pivotY(current);
-			var offsetX = subImage.offsetX * sx;
-			var offsetY = subImage.offsetY * sy;
+			var offsetX = subImage.offsetX * scale;
+			var offsetY = subImage.offsetY * scale;
 
 			var width = subImage.originalWidth;
 			var height = subImage.originalHeight;
 			var originX = pivotX * width - offsetX;
 			var originY = (1.0 - pivotY) * height - offsetY;
-			var locationX = (xflip * sx * sprites.x(current)) + x;
-			var locationY = (sy * -sprites.y(current)) + y;
-			var scaleX = sprites.scaleX(current) * sx * xflip;
-			var scaleY = sprites.scaleY(current) * sy;
+			var locationX = (xflip * scale * sprites.x(current)) + x;
+			var locationY = (scale * -sprites.y(current)) + y;
+			var scaleX = sprites.scaleX(current) * scale * xflip;
+			var scaleY = sprites.scaleY(current) * scale;
 			var angle = -sprites.angle(current) * xflip;
 			if(subImage.rotated){
 				angle -= Math.PI/2;
