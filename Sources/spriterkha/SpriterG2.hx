@@ -31,8 +31,8 @@ class SpriterG2 {
 
 			var pivotX = sprites.pivotX(current);
 			var pivotY = sprites.pivotY(current);
-			var offsetX = subImage.offsetX * scale;
-			var offsetY = subImage.offsetY * scale;
+			var offsetX = subImage.offsetX;
+			var offsetY = subImage.offsetY;
 
 			var width = subImage.originalWidth;
 			var height = subImage.originalHeight;
