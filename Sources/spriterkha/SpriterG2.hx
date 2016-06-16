@@ -18,6 +18,8 @@ class SpriterG2 {
 		var current = sprites.start;
 		var xflip = flipX ? -1 : 1;
 
+		g2.pushTransformation(g2.transformation);
+
 		while (current < sprites.top){
 			var folderId = sprites.folderId(current);
 			var fileId = sprites.fileId(current);
@@ -71,6 +73,8 @@ class SpriterG2 {
 
 			current+=entity.sprites.structSize;
 		}
+
+		g2.popTransformation();
 	}
 
 	@:access(spriter)
