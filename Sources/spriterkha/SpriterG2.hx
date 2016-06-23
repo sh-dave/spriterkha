@@ -27,7 +27,8 @@ class SpriterG2 {
 			var subImage = imageSheet.getSubImage(filename);
 
 			if(subImage == null){
-				drawDebugSpriter(g2,entity, x,y);
+				drawDebugSpriter(g2, entity, x, y);
+				g2.popTransformation();
 				return;
 			}
 
